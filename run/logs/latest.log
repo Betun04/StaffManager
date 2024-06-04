@@ -1,0 +1,73 @@
+[21:16:16] [ServerMain/INFO]: Environment: Environment[sessionHost=https://sessionserver.mojang.com, servicesHost=https://api.minecraftservices.com, name=PROD]
+[21:16:17] [ServerMain/INFO]: Found new data pack file/bukkit, loading it automatically
+[21:16:18] [ServerMain/INFO]: No existing world data, creating new world
+[21:16:18] [ServerMain/INFO]: Loaded 1174 recipes
+[21:16:18] [ServerMain/INFO]: Loaded 1271 advancements
+[21:16:19] [Server thread/INFO]: Starting minecraft server version 1.20.4
+[21:16:19] [Server thread/INFO]: Loading properties
+[21:16:19] [Server thread/INFO]: This server is running Paper version git-Paper-497 (MC: 1.20.4) (Implementing API version 1.20.4-R0.1-SNAPSHOT) (Git: d8d54d9 on ver/1.20.4)
+[21:16:20] [Server thread/INFO]: Server Ping Player Sample Count: 12
+[21:16:20] [Server thread/INFO]: Using 4 threads for Netty based IO
+[21:16:20] [Server thread/INFO]: [ChunkTaskScheduler] Chunk system is using 1 I/O threads, 2 worker threads, and gen parallelism of 2 threads
+[21:16:20] [Server thread/WARN]: [!] The timings profiler has been enabled but has been scheduled for removal from Paper in the future.
+    We recommend installing the spark profiler as a replacement: https://spark.lucko.me/
+    For more information please visit: https://github.com/PaperMC/Paper/issues/8948
+[21:16:20] [Server thread/INFO]: Default game type: SURVIVAL
+[21:16:20] [Server thread/INFO]: Generating keypair
+[21:16:20] [Server thread/INFO]: Starting Minecraft server on *:25565
+[21:16:20] [Server thread/INFO]: Using default channel type
+[21:16:20] [Server thread/INFO]: Paper: Using Java compression from Velocity.
+[21:16:20] [Server thread/INFO]: Paper: Using Java cipher from Velocity.
+[21:16:20] [Server thread/INFO]: [staffManager] Loading server plugin staffManager v1.0
+[21:16:20] [Server thread/INFO]: Preparing level "world"
+[21:16:29] [Server thread/INFO]: Preparing start region for dimension minecraft:overworld
+[21:16:29] [Server thread/INFO]: Time elapsed: 83 ms
+[21:16:29] [Server thread/INFO]: Preparing start region for dimension minecraft:the_nether
+[21:16:29] [Server thread/INFO]: Time elapsed: 90 ms
+[21:16:29] [Server thread/INFO]: Preparing start region for dimension minecraft:the_end
+[21:16:29] [Server thread/INFO]: Time elapsed: 61 ms
+[21:16:29] [Server thread/INFO]: [staffManager] Enabling staffManager v1.0
+[21:16:29] [Server thread/ERROR]: No key layers in MapLike[{}]
+[21:16:29] [Server thread/INFO]: Preparing start region for dimension minecraft:betun
+[21:16:29] [Server thread/INFO]: Time elapsed: 52 ms
+[21:16:29] [Server thread/INFO]: Running delayed init tasks
+[21:16:29] [Server thread/INFO]: Done (10.700s)! For help, type "help"
+[21:16:29] [Server thread/INFO]: *************************************************************************************
+[21:16:29] [Server thread/INFO]: This is the first time you're starting this server.
+[21:16:29] [Server thread/INFO]: It's recommended you read our 'Getting Started' documentation for guidance.
+[21:16:29] [Server thread/INFO]: View this and more helpful information here: https://docs.papermc.io/paper/next-steps
+[21:16:29] [Server thread/INFO]: *************************************************************************************
+[21:16:29] [Server thread/INFO]: Timings Reset
+[21:17:32] [Server thread/INFO]: Stopping the server
+[21:17:32] [Server thread/INFO]: Stopping server
+[21:17:32] [Server thread/INFO]: [staffManager] Disabling staffManager v1.0
+[21:17:32] [Server thread/INFO]: Saving players
+[21:17:32] [Server thread/INFO]: Saving worlds
+[21:17:32] [Server thread/INFO]: Saving chunks for level 'ServerLevel[world]'/minecraft:overworld
+[21:17:33] [Server thread/INFO]: [ChunkHolderManager] Waiting 60s for chunk system to halt for world 'world'
+[21:17:33] [Server thread/INFO]: [ChunkHolderManager] Halted chunk system for world 'world'
+[21:17:33] [Server thread/INFO]: [ChunkHolderManager] Saving all chunkholders for world 'world'
+[21:17:34] [Server thread/INFO]: [ChunkHolderManager] Saved 2025 block chunks, 529 entity chunks, 0 poi chunks in world 'world' in 1,63s
+[21:17:35] [Server thread/INFO]: ThreadedAnvilChunkStorage (world): All chunks are saved
+[21:17:35] [Server thread/INFO]: Saving chunks for level 'ServerLevel[world_nether]'/minecraft:the_nether
+[21:17:35] [Server thread/INFO]: [ChunkHolderManager] Waiting 60s for chunk system to halt for world 'world_nether'
+[21:17:35] [Server thread/INFO]: [ChunkHolderManager] Halted chunk system for world 'world_nether'
+[21:17:35] [Server thread/INFO]: [ChunkHolderManager] Saving all chunkholders for world 'world_nether'
+[21:17:36] [Server thread/INFO]: [ChunkHolderManager] Saved 2025 block chunks, 529 entity chunks, 0 poi chunks in world 'world_nether' in 0,90s
+[21:17:37] [Server thread/INFO]: ThreadedAnvilChunkStorage (DIM-1): All chunks are saved
+[21:17:37] [Server thread/INFO]: Saving chunks for level 'ServerLevel[world_the_end]'/minecraft:the_end
+[21:17:37] [Server thread/INFO]: [ChunkHolderManager] Waiting 60s for chunk system to halt for world 'world_the_end'
+[21:17:37] [Server thread/INFO]: [ChunkHolderManager] Halted chunk system for world 'world_the_end'
+[21:17:37] [Server thread/INFO]: [ChunkHolderManager] Saving all chunkholders for world 'world_the_end'
+[21:17:37] [Server thread/INFO]: [ChunkHolderManager] Saved 2025 block chunks, 529 entity chunks, 0 poi chunks in world 'world_the_end' in 0,40s
+[21:17:38] [Server thread/INFO]: ThreadedAnvilChunkStorage (DIM1): All chunks are saved
+[21:17:38] [Server thread/INFO]: Saving chunks for level 'ServerLevel[betun]'/minecraft:betun
+[21:17:38] [Server thread/INFO]: [ChunkHolderManager] Waiting 60s for chunk system to halt for world 'betun'
+[21:17:38] [Server thread/INFO]: [ChunkHolderManager] Halted chunk system for world 'betun'
+[21:17:38] [Server thread/INFO]: [ChunkHolderManager] Saving all chunkholders for world 'betun'
+[21:17:39] [Server thread/INFO]: [ChunkHolderManager] Saved 2025 block chunks, 529 entity chunks, 0 poi chunks in world 'betun' in 0,67s
+[21:17:39] [Server thread/INFO]: ThreadedAnvilChunkStorage (betun): All chunks are saved
+[21:17:39] [Server thread/INFO]: ThreadedAnvilChunkStorage: All dimensions are saved
+[21:17:39] [Server thread/INFO]: Flushing Chunk IO
+[21:17:39] [Server thread/INFO]: Closing Thread Pool
+[21:17:39] [Server thread/INFO]: Closing Server
