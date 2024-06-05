@@ -60,12 +60,12 @@ public class InventorySaveUtil {
         }
         //endregion
 
-        if(Files.get().get(p.getUniqueId().toString()) == null){
-            Files.get().set(p.getUniqueId().toString()+".items",invStr);
-            Files.get().set(p.getUniqueId().toString()+".armor",armorStr);
+        if(Files.getInvs().get(p.getUniqueId().toString()) == null){
+            Files.getInvs().set(p.getUniqueId().toString()+".items",invStr);
+            Files.getInvs().set(p.getUniqueId().toString()+".armor",armorStr);
             invStr = "";
             armorStr = "";
-            Files.save();
+            Files.saveInvs();
             p.getInventory().clear();
             return true;
         }else{
@@ -77,9 +77,9 @@ public class InventorySaveUtil {
 
     public static boolean loadInv(Player p){
 
-        if(Files.get().get(p.getUniqueId().toString()) != null) {
+        if(Files.getInvs().get(p.getUniqueId().toString()) != null) {
             //region Items
-            byte[] serializedObject = Base64.getDecoder().decode(Files.get().getString(p.getUniqueId().toString() + ".items"));
+            byte[] serializedObject = Base64.getDecoder().decode(Files.getInvs().getString(p.getUniqueId().toString() + ".items"));
 
             ByteArrayInputStream in = new ByteArrayInputStream(serializedObject);
             try {
@@ -93,7 +93,7 @@ public class InventorySaveUtil {
             //endregion
 
             //region Armor
-            serializedObject = Base64.getDecoder().decode(Files.get().getString(p.getUniqueId().toString() + ".armor"));
+            serializedObject = Base64.getDecoder().decode(Files.getInvs().getString(p.getUniqueId().toString() + ".armor"));
 
             in = new ByteArrayInputStream(serializedObject);
             try {
@@ -105,8 +105,8 @@ public class InventorySaveUtil {
             }
             //endregion
 
-            Files.get().set(p.getUniqueId().toString(),null);
-            Files.save();
+            Files.getInvs().set(p.getUniqueId().toString(),null);
+            Files.saveInvs();
             return true;
         }else{
             return false;

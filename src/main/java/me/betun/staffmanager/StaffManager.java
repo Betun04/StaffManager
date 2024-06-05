@@ -2,6 +2,8 @@ package me.betun.staffmanager;
 
 import me.betun.staffmanager.commands.SaveInventory;
 import me.betun.staffmanager.commands.SaveInventoryTabCompleter;
+import me.betun.staffmanager.commands.Vanish;
+import me.betun.staffmanager.commands.VanishTabCompleter;
 import me.betun.staffmanager.utils.Files;
 import org.bukkit.plugin.java.JavaPlugin;
 
@@ -15,8 +17,10 @@ public final class StaffManager extends JavaPlugin {
         // Plugin startup logic
         instance = this;
         Files.setup();
-        Files.get().options().copyDefaults(true);
-        Files.save();
+        Files.getInvs().options().copyDefaults(true);
+        Files.getVanish().options().copyDefaults(true);
+        Files.saveInvs();
+        Files.saveVanish();
 
         registerCommands();
     }
@@ -28,6 +32,9 @@ public final class StaffManager extends JavaPlugin {
     public void registerCommands(){
         getCommand("saveInv").setExecutor(new SaveInventory());
         getCommand("saveInv").setTabCompleter(new SaveInventoryTabCompleter());
+
+        getCommand("vanish").setExecutor(new Vanish());
+        getCommand("vanish").setTabCompleter(new VanishTabCompleter());
     }
 
     @Override

@@ -11,3 +11,7 @@ commands:
       - savei
       - sinv
     permission: op
+  vanish:
+    description: "Hide yourself"
+    usage: /<command>
+    permission: op
