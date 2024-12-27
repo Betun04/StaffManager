@@ -1,11 +1,11 @@
 package me.betun.staffmanager.utils;
 
-import org.bukkit.ChatColor;
+import net.kyori.adventure.text.Component;
+import net.kyori.adventure.text.serializer.legacy.LegacyComponentSerializer;
 
 public class MessageUtils {
 
-    public static String coloredMessage(String message){
-        return ChatColor.translateAlternateColorCodes('&', message);
+    public static Component coloredMessage(String message) {
+        return LegacyComponentSerializer.legacyAmpersand().deserialize(message);
     }
-
 }

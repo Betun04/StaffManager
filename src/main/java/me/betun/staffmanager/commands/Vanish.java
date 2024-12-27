@@ -28,6 +28,7 @@ public class Vanish implements CommandExecutor {
                     VanishUtils.spawning(p,false);
                     VanishUtils.collidable(p,false);
                     VanishUtils.silent(p,false);
+                    VanishUtils.vanishState(p);
                     p.setVisibleByDefault(false);
                     p.sendMessage(MessageUtils.coloredMessage(StaffManager.prefix + "&dYou are no longer visible, shh"));
                 }
@@ -48,6 +49,7 @@ public class Vanish implements CommandExecutor {
                         VanishUtils.silent(p,false);
                     }
 
+                    VanishUtils.vanishState(p);
                     p.setVisibleByDefault(true);
                     p.sendMessage(MessageUtils.coloredMessage(StaffManager.prefix + "&dYou are visible again!"));
                 }

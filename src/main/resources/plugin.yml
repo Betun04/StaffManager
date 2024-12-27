@@ -15,3 +15,11 @@ commands:
     description: "Hide yourself"
     usage: /<command>
     permission: op
+  freeze:
+    description: "Freeze player"
+    usage: /<command>
+    permission: op
+  invsee:
+    description: "See player inventory"
+    usage: /<command>
+    permission: op

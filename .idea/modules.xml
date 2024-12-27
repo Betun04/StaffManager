@@ -2,6 +2,8 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/me.betun.staffManager.main.iml" filepath="$PROJECT_DIR$/.idea/modules/me.betun.staffManager.main.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/me.betun.staffManager.test.iml" filepath="$PROJECT_DIR$/.idea/modules/me.betun.staffManager.test.iml" />
       <module fileurl="file://$PROJECT_DIR$/.idea/modules/staffManager.main.iml" filepath="$PROJECT_DIR$/.idea/modules/staffManager.main.iml" />
       <module fileurl="file://$PROJECT_DIR$/.idea/modules/staffManager.test.iml" filepath="$PROJECT_DIR$/.idea/modules/staffManager.test.iml" />
     </modules>

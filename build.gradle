@@ -1,7 +1,7 @@
 plugins {
     id 'java'
-    id("io.papermc.paperweight.userdev") version "1.7.1"
-    id("xyz.jpenilla.run-paper") version "2.3.0"
+    id("io.papermc.paperweight.userdev") version "1.7.7"
+    id("xyz.jpenilla.run-paper") version "2.3.1"
 }
 
 group = 'me.betun'
@@ -20,8 +20,8 @@ repositories {
 }
 
 dependencies {
-    compileOnly "io.papermc.paper:paper-api:1.20.4-R0.1-SNAPSHOT"
-    paperweight.paperDevBundle("1.20.4-R0.1-SNAPSHOT")
+    compileOnly "io.papermc.paper:paper-api:1.20.6-R0.1-SNAPSHOT"
+    paperweight.paperDevBundle "1.20.6-R0.1-SNAPSHOT"
 }
 
 tasks {
@@ -29,11 +29,11 @@ tasks {
         // Configure the Minecraft version for our task.
         // This is the only required configuration besides applying the plugin.
         // Your plugin's jar (or shadowJar if present) will be used automatically.
-        minecraftVersion("1.20.4")
+        minecraftVersion("1.20.6")
     }
 }
 
-def targetJavaVersion = 17
+def targetJavaVersion = 21
 java {
     def javaVersion = JavaVersion.toVersion(targetJavaVersion)
     sourceCompatibility = javaVersion
