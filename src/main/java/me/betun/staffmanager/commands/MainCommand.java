@@ -1,6 +1,7 @@
 package me.betun.staffmanager.commands;
 
 import me.betun.staffmanager.commands.chat.ChatCommand;
+import me.betun.staffmanager.commands.chat.StaffChatCommand;
 import me.betun.staffmanager.interfaces.SubCommand;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
@@ -16,7 +17,7 @@ public class MainCommand implements CommandExecutor {
     public MainCommand() {
         // Registrar subcomandos
         subCommands.put("chat", new ChatCommand());
-        //subCommands.put("freeze", new FreezeCommand());
+        subCommands.put("staffchat", new StaffChatCommand());
         //subCommands.put("vanish", new VanishCommand());
     }
 

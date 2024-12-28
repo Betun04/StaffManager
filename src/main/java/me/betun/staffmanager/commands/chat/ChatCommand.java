@@ -12,7 +12,9 @@ public class ChatCommand implements SubCommand {
 
     public ChatCommand() {
         subCommands.put("slow", new ChatSlow());
-        //subCommands.put("mute", new ChatMuteCommand());
+        subCommands.put("mute", new ChatMute());
+        subCommands.put("pause", new ChatPause());
+        subCommands.put("banword", new ChatBanWords());
     }
 
     @Override

@@ -90,17 +90,24 @@ public class ProtocolLibHook {
                 }
 
                 for(String word: banedWords) {
-                    if (message.contains(word) && !e.getPlayer().isOp()) {
+                    String normalizedMessage = MessageUtils.normalizeLeet(message);
+                    if (normalizedMessage.toLowerCase().contains(word) && !e.getPlayer().isOp()) {
                         String censored = "*".repeat(word.length());
 
                         // Modificar el mensaje
-                        String modifiedMessage = message.replace(word, censored);
+                        String modifiedMessage = replaceWord(normalizedMessage,word,censored);
                         e.getPacket().getStrings().write(0, modifiedMessage);
                     }
                 }
             }
 
         });
+    }
+
+    public static String replaceWord(String message, String targetWord, String replacement) {
+        // Crear un patrón que busque la palabra sin importar mayúsculas/minúsculas
+        String pattern = "\\b" + targetWord + "\\b"; // \b asegura que coincida solo con palabras completas
+        return message.replaceAll("(?i)" + pattern, replacement);
     }
 
 }
