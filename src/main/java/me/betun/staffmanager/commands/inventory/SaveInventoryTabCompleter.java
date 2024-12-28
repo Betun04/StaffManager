@@ -1,4 +1,4 @@
-package me.betun.staffmanager.commands;
+package me.betun.staffmanager.commands.inventory;
 
 import org.bukkit.Bukkit;
 import org.bukkit.command.Command;
@@ -11,9 +11,9 @@ import org.jetbrains.annotations.Nullable;
 import java.util.ArrayList;
 import java.util.List;
 
-public class FreezeTabCompleter implements TabCompleter {
+public class SaveInventoryTabCompleter implements TabCompleter {
     @Override
-    public @Nullable List<String> onTabComplete(@NotNull CommandSender sender, @NotNull Command cmd, @NotNull String s, @NotNull String[] args) {
+    public @Nullable List<String> onTabComplete(@NotNull CommandSender sender, @NotNull Command command, @NotNull String label, @NotNull String[] args) {
         List<String> l = new ArrayList<>();
 
         if (args.length == 0) {
@@ -21,12 +21,18 @@ public class FreezeTabCompleter implements TabCompleter {
         }
         else if (!(sender instanceof Player)) {
             return l;
-        }else if(args.length == 1){
-            if(args[0].isEmpty()){
+        }
+        else if(args.length == 1){
+            l.add("save");
+            l.add("load");
+            return l;
+        }
+        else if(args.length == 2){
+            if(args[1].isEmpty()){
                 l.add("all");
             }
             for(Player player: Bukkit.getOnlinePlayers()){
-                if(l.isEmpty() || player.getName().contains(args[0])){
+                if(l.isEmpty() || player.getName().contains(args[1])){
                     l.add(player.getName());
                 }
             }
@@ -35,5 +41,6 @@ public class FreezeTabCompleter implements TabCompleter {
         else{
             return l;
         }
+
     }
 }

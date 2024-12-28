@@ -3,6 +3,8 @@ package me.betun.staffmanager.utils;
 import org.bukkit.Bukkit;
 import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.configuration.file.YamlConfiguration;
+import org.yaml.snakeyaml.Yaml;
+
 import java.io.File;
 import java.io.IOException;
 
@@ -11,15 +13,18 @@ public class Files {
     private static File fileInvs;
     private static File fileVanish;
     private static File fileFreeze;
+    private static File fileChat;
     private static FileConfiguration customFileInvs;
     private static FileConfiguration customFileVanish;
     private static FileConfiguration customFileFreeze;
+    private static FileConfiguration customFileChat;
 
     public static void setup(){
 
-        fileInvs = new File(Bukkit.getServer().getPluginManager().getPlugin("StaffManager").getDataFolder(), "inventories.yml");
-        fileVanish = new File(Bukkit.getServer().getPluginManager().getPlugin("StaffManager").getDataFolder(),"vanish.yml");
-        fileFreeze = new File(Bukkit.getServer().getPluginManager().getPlugin("StaffManager").getDataFolder(),"freeze.yml");
+        fileInvs = new File(Bukkit.getServer().getPluginManager().getPlugin("StaffManager").getDataFolder(), "data/inventories.yml");
+        fileVanish = new File(Bukkit.getServer().getPluginManager().getPlugin("StaffManager").getDataFolder(),"data/vanish.yml");
+        fileFreeze = new File(Bukkit.getServer().getPluginManager().getPlugin("StaffManager").getDataFolder(),"data/freeze.yml");
+        fileChat = new File(Bukkit.getServer().getPluginManager().getPlugin("StaffManager").getDataFolder(), "data/chat.yml");
 
         if(!fileInvs.exists()){
             try{
@@ -45,9 +50,18 @@ public class Files {
             }
         }
 
+        if(!fileChat.exists()){
+            try{
+                fileChat.createNewFile();
+            }catch(IOException e){
+                //owww
+            }
+        }
+
         customFileInvs = YamlConfiguration.loadConfiguration(fileInvs);
         customFileVanish = YamlConfiguration.loadConfiguration(fileVanish);
         customFileFreeze = YamlConfiguration.loadConfiguration(fileFreeze);
+        customFileChat = YamlConfiguration.loadConfiguration(fileChat);
 
     }
 
@@ -62,6 +76,8 @@ public class Files {
     public static FileConfiguration getFreeze(){
         return customFileFreeze;
     }
+
+    public static FileConfiguration getChatFile(){ return customFileChat; }
 
     public static void saveInvs(){
         try{
@@ -82,6 +98,14 @@ public class Files {
     public static void saveFreeze(){
         try{
             customFileFreeze.save(fileFreeze);
+        }catch (IOException e){
+            System.out.println("Couldn't save file");
+        }
+    }
+
+    public static void saveChatFile(){
+        try{
+            customFileChat.save(fileChat);
         }catch (IOException e){
             System.out.println("Couldn't save file");
         }

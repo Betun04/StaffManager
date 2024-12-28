@@ -1,4 +1,4 @@
-package me.betun.staffmanager.commands;
+package me.betun.staffmanager.commands.inventory;
 
 import me.betun.staffmanager.StaffManager;
 import me.betun.staffmanager.utils.InventorySaveUtil;

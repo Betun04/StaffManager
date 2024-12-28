@@ -1,4 +1,4 @@
-package me.betun.staffmanager.commands;
+package me.betun.staffmanager.commands.vanish;
 
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandSender;

@@ -1,4 +1,4 @@
-package me.betun.staffmanager.commands;
+package me.betun.staffmanager.commands.freeze;
 
 import me.betun.staffmanager.utils.Files;
 import org.bukkit.Bukkit;

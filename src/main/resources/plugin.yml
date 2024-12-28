@@ -3,6 +3,7 @@ version: '${version}'
 main: me.betun.staffmanager.StaffManager
 api-version: '1.20'
 author: Betun04
+depend: [ProtocolLib]
 commands:
   saveInv:
     description: "Guarda inventarios"
@@ -21,5 +22,25 @@ commands:
     permission: op
   invsee:
     description: "See player inventory"
+    usage: /<command>
+    permission: op
+  mute:
+    description: "Mute another player"
+    usage: /<command>
+    permission: op
+  banWord:
+    description: "Add or remove a word to the banlist"
+    usage: /<command>
+    permission: op
+  pause:
+    description: "Pause chat"
+    usage: /<command>
+    permission: op
+  staffChat:
+    description: "Toggles staff chat"
+    usage: /<command>
+    permission: op
+  slow:
+    description: "Toggles slow chat"
     usage: /<command>
     permission: op
