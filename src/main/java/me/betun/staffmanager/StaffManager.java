@@ -1,5 +1,7 @@
 package me.betun.staffmanager;
 
+import me.betun.staffmanager.commands.MainCommand;
+import me.betun.staffmanager.commands.MainCommandTabCompleter;
 import me.betun.staffmanager.commands.chat.*;
 import me.betun.staffmanager.commands.freeze.Freeze;
 import me.betun.staffmanager.commands.freeze.FreezeTabCompleter;
@@ -54,26 +56,10 @@ public final class StaffManager extends JavaPlugin {
     }
 
     public void registerCommands(){
-        getCommand("saveInv").setExecutor(new SaveInventory());
-        getCommand("saveInv").setTabCompleter(new SaveInventoryTabCompleter());
 
-        getCommand("vanish").setExecutor(new Vanish());
-        getCommand("vanish").setTabCompleter(new VanishTabCompleter());
+        getCommand("staffmanager").setExecutor(new MainCommand());
+        getCommand("staffManager").setTabCompleter(new MainCommandTabCompleter());
 
-        getCommand("freeze").setExecutor(new Freeze());
-        getCommand("freeze").setTabCompleter(new FreezeTabCompleter());
-
-        getCommand("invsee").setExecutor(new InvSee());
-
-        getCommand("mute").setExecutor(new Mute());
-
-        getCommand("banWord").setExecutor(new BanWords());
-
-        getCommand("pause").setExecutor(new Pause());
-
-        getCommand("staffChat").setExecutor(new StaffChat());
-
-        getCommand("slow").setExecutor(new Slow());
     }
 
     @Override
