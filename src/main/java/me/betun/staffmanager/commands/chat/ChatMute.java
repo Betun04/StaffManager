@@ -28,13 +28,13 @@ public class ChatMute implements SubCommand {
             mutedList.add(p.getUniqueId().toString());
             Files.getChatFile().set("muted",mutedList);
             Files.saveChatFile();
-            sender.sendMessage(MessageUtils.coloredMessage(StaffManager.prefix+"The user &3"+p.getName()+"&r was muted."));
+            sender.sendMessage(MessageUtils.coloredMessage(StaffManager.prefix+"The user &3"+p.getName()+"&r was muted"));
         } else if (p != null && p.isOnline() && !p.isOp() && mutedList.contains(p.getUniqueId().toString())){
             // Lógica para desactivar el mute
             mutedList.remove(p.getUniqueId().toString());
             Files.getChatFile().set("muted",mutedList);
             Files.saveChatFile();
-            sender.sendMessage(MessageUtils.coloredMessage(StaffManager.prefix+"The user &3"+p.getName()+"&r can speak again."));
+            sender.sendMessage(MessageUtils.coloredMessage(StaffManager.prefix+"The user &3"+p.getName()+"&r can speak again"));
         } else {
             sender.sendMessage(MessageUtils.coloredMessage(StaffManager.prefix+"Usage: /staffmanager chat mute <player>"));
         }

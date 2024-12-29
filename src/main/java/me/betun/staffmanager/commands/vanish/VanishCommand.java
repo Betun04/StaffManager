@@ -23,7 +23,6 @@ public class VanishCommand implements SubCommand {
             if(args.length == 1){
                 if(p.isVisibleByDefault()){
                     VanishUtils.pickUp(p,false);
-                    VanishUtils.spawning(p,false);
                     VanishUtils.collidable(p,false);
                     VanishUtils.vanishState(p);
                     p.setVisibleByDefault(false);
@@ -32,10 +31,6 @@ public class VanishCommand implements SubCommand {
                 else{
                     if(!p.getCanPickupItems()){
                         VanishUtils.pickUp(p,false);
-                    }
-
-                    if(!p.getAffectsSpawning()){
-                        VanishUtils.spawning(p,false);
                     }
 
                     if(!p.isCollidable()){
@@ -49,12 +44,6 @@ public class VanishCommand implements SubCommand {
             }else if(args[1].equalsIgnoreCase("pickup")){
                 if(!p.isVisibleByDefault()){
                     VanishUtils.pickUp(p,true);
-                }else{
-                    sender.sendMessage(MessageUtils.coloredMessage(StaffManager.prefix + "&cYou must be vanished to use this command"));
-                }
-            }else if(args[1].equalsIgnoreCase("spawning")){
-                if(!p.isVisibleByDefault()){
-                    VanishUtils.spawning(p,true);
                 }else{
                     sender.sendMessage(MessageUtils.coloredMessage(StaffManager.prefix + "&cYou must be vanished to use this command"));
                 }

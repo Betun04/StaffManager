@@ -11,6 +11,7 @@ import org.bukkit.potion.PotionEffect;
 import org.bukkit.potion.PotionEffectType;
 
 import java.util.List;
+import java.util.function.BiConsumer;
 
 public class FreezeCommand implements SubCommand {
 
@@ -30,7 +31,6 @@ public class FreezeCommand implements SubCommand {
                     Files.saveFreeze();
 
                     //Remove effects
-                    p.removePotionEffect(PotionEffectType.SLOWNESS);
                     p.removePotionEffect(PotionEffectType.WEAKNESS);
 
                     //Un-make invulnerable
@@ -38,7 +38,8 @@ public class FreezeCommand implements SubCommand {
                     //Add Gravity
                     p.setGravity(true);
 
-                    sender.sendMessage(MessageUtils.coloredMessage(StaffManager.prefix+"The player &b"+p.getName() +"&r is no longer frozen."));
+                    sender.sendMessage(MessageUtils.coloredMessage(StaffManager.prefix+"The player &b"+p.getName() +"&r is no longer&b frozen"));
+                    p.sendMessage(MessageUtils.coloredMessage(StaffManager.prefix+"You have been&b unfrozen"));
 
                 }else{
 
@@ -47,8 +48,7 @@ public class FreezeCommand implements SubCommand {
                     Files.getFreeze().set("freezed",frozenPlayers);
                     Files.saveFreeze();
 
-                    //Add slow effect
-                    p.addPotionEffect(new PotionEffect(PotionEffectType.SLOWNESS,PotionEffect.INFINITE_DURATION,2,false,false));
+                    //Add effects
                     p.addPotionEffect(new PotionEffect(PotionEffectType.WEAKNESS,PotionEffect.INFINITE_DURATION,5,false,false));
 
                     //Make invulnerable
@@ -56,7 +56,8 @@ public class FreezeCommand implements SubCommand {
                     //Gravity
                     p.setGravity(false);
 
-                    sender.sendMessage(MessageUtils.coloredMessage(StaffManager.prefix+"The player &b"+p.getName() +"&r is frozen."));
+                    sender.sendMessage(MessageUtils.coloredMessage(StaffManager.prefix+"The player &b"+p.getName() +"&r is&b frozen"));
+                    p.sendMessage(MessageUtils.coloredMessage(StaffManager.prefix+"You have been&b frozen"));
                 }
             }
         }

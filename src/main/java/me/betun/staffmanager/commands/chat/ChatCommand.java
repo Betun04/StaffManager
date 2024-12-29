@@ -30,7 +30,7 @@ public class ChatCommand implements SubCommand {
         if (subCommand != null) {
             subCommand.execute(sender, args);
         } else {
-            sender.sendMessage(MessageUtils.coloredMessage(StaffManager.prefix+"Invalid option for chat."));
+            sender.sendMessage(MessageUtils.coloredMessage(StaffManager.prefix+"Invalid option for chat"));
         }
     }
 }

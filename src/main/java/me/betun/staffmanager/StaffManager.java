@@ -12,14 +12,14 @@ public final class StaffManager extends JavaPlugin {
 
     private static StaffManager instance;
     public static String prefix = "&l&7[&3StaffManager&7]&r ";
-
+    public static int version;
 
     @Override
     public void onEnable() {
         // Plugin startup logic
 
         instance = this;
-
+        version = Integer.parseInt(Bukkit.getBukkitVersion().split("-")[0].replace(".",""));
         //region Files setup
 
         Files.setup();

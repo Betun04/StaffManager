@@ -46,7 +46,7 @@ public class ProtocolLibHook {
                     e.setCancelled(true);
                 }
                 else if(muted.contains(e.getPlayer().getUniqueId().toString()) && !e.getPlayer().isOp()) {
-                    e.getPlayer().sendMessage(MessageUtils.coloredMessage("&cFuiste silenciado, no podes hablar."));
+                    e.getPlayer().sendMessage(MessageUtils.coloredMessage(StaffManager.prefix+"&cYou have been muted, you cannot speak"));
                     e.setCancelled(true);
                 }
                 else if(slowed && !e.getPlayer().isOp()){
@@ -60,7 +60,7 @@ public class ProtocolLibHook {
                         // Cooldown activo
                         e.setCancelled(true);
                         long timeLeft = (chatCooldown - (currentTime - lastTime)) / 1000;
-                        e.getPlayer().sendMessage("Por favor, espera " + timeLeft + " segundos antes de enviar otro mensaje.");
+                        e.getPlayer().sendMessage(MessageUtils.coloredMessage(StaffManager.prefix+"Please, wait " + timeLeft + " seconds before sending another message"));
                         return;
                     }
 

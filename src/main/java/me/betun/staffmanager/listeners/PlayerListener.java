@@ -1,5 +1,6 @@
 package me.betun.staffmanager.listeners;
 
+import com.destroystokyo.paper.event.player.PlayerJumpEvent;
 import me.betun.staffmanager.StaffManager;
 import me.betun.staffmanager.commands.inventory.InvSeeCommand;
 import me.betun.staffmanager.utils.Files;
@@ -111,7 +112,8 @@ public class PlayerListener implements Listener {
     @EventHandler
     public void onInventoryModify(InventoryClickEvent e) {
 
-        List<Integer> avoidSlots = List.of(45,46,47,48,50);
+        List<Integer> avoidSlotsWOffHand = List.of(45,46,47,48,50);
+        List<Integer> avoidSlotsNoOffHand = List.of(45,46,47,48);
 
 
         // Verificar que el inventario sea parte del sistema InvSee
@@ -124,12 +126,12 @@ public class PlayerListener implements Listener {
                 // Verificar el tipo de clic
                 if (e.getClickedInventory() == null ||
                    (e.getCurrentItem() != null && e.getCurrentItem().getType() == Material.BLACK_STAINED_GLASS_PANE && e.getCurrentItem().getItemMeta().getCustomModelData() == 1996)
-                   || e.getClick() == ClickType.NUMBER_KEY){
+                   || e.getClick() == ClickType.NUMBER_KEY || (avoidSlotsNoOffHand.contains(e.getRawSlot()) && e.getClick() == ClickType.RIGHT)){
 
                     e.setCancelled(true);
                 }
                 else if ((e.getClick() == ClickType.SHIFT_LEFT || e.getClick() == ClickType.SHIFT_RIGHT)) {
-                    if(avoidSlots.contains(e.getRawSlot())){
+                    if(avoidSlotsWOffHand.contains(e.getRawSlot())){
                         e.setCancelled(true);
                     }else{
                         e.setCancelled(true); // Cancelar el Shift + Click por defecto
@@ -160,7 +162,7 @@ public class PlayerListener implements Listener {
                         }
                     }
                 }
-                else if(e.getClick() == ClickType.RIGHT && !avoidSlots.contains(e.getRawSlot())){
+                else if(e.getClick() == ClickType.RIGHT && !avoidSlotsNoOffHand.contains(e.getRawSlot())){
 
                     // Sincronizar cambios al inventario del jugador objetivo
 
@@ -173,11 +175,13 @@ public class PlayerListener implements Listener {
                             int amount = e.getInventory().getItem(slot).getAmount();
                             target.getInventory().setItem(slot, new ItemStack(e.getCursor().getType(),amount+1));
                         }
-                        e.getCursor().setAmount(e.getCursor().getAmount()-1);
-                    }else if (slot == 40) {
-                        int amount = e.getInventory().getItem(slot).getAmount();
-                        target.getInventory().setItemInOffHand(new ItemStack(e.getCursor().getType(),amount+1));
-                        e.getCursor().setAmount(e.getCursor().getAmount()-1);
+                    }else if (slot == 50) {
+                        if(admin.getOpenInventory().getTopInventory().getItem(50) == null){
+                            target.getInventory().setItemInOffHand(new ItemStack(e.getCursor().getType(),1));
+                        }else{
+                            int amount = admin.getOpenInventory().getTopInventory().getItem(50).getAmount();
+                            target.getInventory().setItemInOffHand(new ItemStack(e.getCursor().getType(),amount+1));
+                        }
                     }
                 }
                 else if(e.getClick() == ClickType.LEFT){
@@ -193,12 +197,13 @@ public class PlayerListener implements Listener {
                         target.getInventory().setItemInOffHand(e.getCursor());
                     }
                 }
-                else if(e.getClick() == ClickType.DOUBLE_CLICK && !avoidSlots.contains(e.getRawSlot())){
+                else if(e.getClick() == ClickType.DOUBLE_CLICK && !avoidSlotsNoOffHand.contains(e.getRawSlot())){
                     Bukkit.getScheduler().runTaskLater(StaffManager.getInstance(), () -> {
                         for(int i=0;i<36;i++){
                             ItemStack item = admin.getOpenInventory().getItem(i);
                             target.getInventory().setItem(i,item);
                         }
+                        target.getInventory().setItemInOffHand(admin.getOpenInventory().getItem(50));
                     }, 5L); // 5 ticks de retraso
                 }
             }
@@ -218,6 +223,7 @@ public class PlayerListener implements Listener {
                         ItemStack item = admin.getOpenInventory().getItem(i);
                         target.getInventory().setItem(i,item);
                     }
+                    target.getInventory().setItemInOffHand(admin.getOpenInventory().getItem(50));
                 }, 5L); // 5 ticks de retraso
             }
         }
@@ -244,4 +250,5 @@ public class PlayerListener implements Listener {
     }
 
     //endregion
+
 }

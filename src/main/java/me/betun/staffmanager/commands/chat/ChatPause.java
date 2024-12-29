@@ -4,6 +4,7 @@ import me.betun.staffmanager.StaffManager;
 import me.betun.staffmanager.interfaces.SubCommand;
 import me.betun.staffmanager.utils.Files;
 import me.betun.staffmanager.utils.MessageUtils;
+import org.bukkit.Bukkit;
 import org.bukkit.command.CommandSender;
 
 public class ChatPause implements SubCommand {
@@ -20,12 +21,12 @@ public class ChatPause implements SubCommand {
             // Lógica para activar el pause chat
             Files.getChatFile().set("paused",true);
             Files.saveChatFile();
-            sender.sendMessage(MessageUtils.coloredMessage(StaffManager.prefix+"Chat paused."));
+            Bukkit.broadcast(MessageUtils.coloredMessage(StaffManager.prefix+"Chat has been paused"));
         } else if (state.equals("off")) {
             // Lógica para desactivar el pause chat
             Files.getChatFile().set("paused",false);
             Files.saveChatFile();
-            sender.sendMessage(MessageUtils.coloredMessage(StaffManager.prefix+"Chat active again."));
+            Bukkit.broadcast(MessageUtils.coloredMessage(StaffManager.prefix+"Chat is active again"));
         } else {
             sender.sendMessage(MessageUtils.coloredMessage(StaffManager.prefix+"Usage: /staffmanager chat pause <on|off>"));
         }

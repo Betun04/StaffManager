@@ -57,7 +57,7 @@ public class MainCommand implements CommandExecutor {
         if (subCommand != null) {
             subCommand.execute(sender, args);
         } else {
-            sender.sendMessage(MessageUtils.coloredMessage(StaffManager.prefix+"Invalid subcommand. Use /staffmanager for help."));
+            sender.sendMessage(MessageUtils.coloredMessage(StaffManager.prefix+"Invalid subcommand. Use /staffmanager for help"));
         }
 
         return true;

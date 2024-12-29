@@ -4,6 +4,7 @@ import me.betun.staffmanager.StaffManager;
 import me.betun.staffmanager.interfaces.SubCommand;
 import me.betun.staffmanager.utils.Files;
 import me.betun.staffmanager.utils.MessageUtils;
+import org.bukkit.Bukkit;
 import org.bukkit.command.CommandSender;
 
 public class ChatSlow implements SubCommand {
@@ -20,12 +21,12 @@ public class ChatSlow implements SubCommand {
             // Lógica para activar el slow chat
             Files.getChatFile().set("slowed",true);
             Files.saveChatFile();
-            sender.sendMessage(MessageUtils.coloredMessage(StaffManager.prefix+"Slow chat on."));
+            Bukkit.broadcast(MessageUtils.coloredMessage(StaffManager.prefix+"Slow chat on"));
         } else if (state.equals("off")) {
             // Lógica para desactivar el slow chat
             Files.getChatFile().set("slowed",false);
             Files.saveChatFile();
-            sender.sendMessage(MessageUtils.coloredMessage(StaffManager.prefix+"Slow chat off."));
+            Bukkit.broadcast(MessageUtils.coloredMessage(StaffManager.prefix+"Slow chat off"));
         } else {
             sender.sendMessage(MessageUtils.coloredMessage(StaffManager.prefix+"Usage: /staffmanager chat slow <on|off>"));
         }

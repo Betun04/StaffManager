@@ -55,7 +55,6 @@ public class MainCommandTabCompleter implements TabCompleter {
                     break;
                 case "vanish":
                     l.add("pickup");
-                    l.add("spawning");
                     l.add("collidable");
                     break;
                 case "saveinv":

@@ -64,42 +64,6 @@ public class VanishUtils {
 
     }
 
-    public static void spawning(Player p,boolean announce){
-        String path = p.getUniqueId().toString();
-        String status = Files.getVanish().getString(path+".affectSpawning");
-
-        try {
-            if(status.equalsIgnoreCase("true")){
-                Files.getVanish().set(path+".affectSpawning","false");
-            }else if(status.equalsIgnoreCase("false")){
-                Files.getVanish().set(path+".affectSpawning","true");
-            }
-        } catch(NullPointerException e) {
-            if (p.isVisibleByDefault()) {
-                Files.getVanish().set(path + ".affectSpawning", "false");
-            } else {
-                Files.getVanish().set(path + ".affectSpawning", "true");
-            }
-        }
-
-        Files.saveVanish();
-
-        status = Files.getVanish().getString(path+".affectSpawning");
-
-        switch (status){
-            case "true":
-                p.setAffectsSpawning(true);
-                if(announce){p.sendMessage(MessageUtils.coloredMessage(StaffManager.prefix+"&aAffect spawning enabled"));}
-                break;
-            case "false":
-                p.setAffectsSpawning(false);
-                if(announce){p.sendMessage(MessageUtils.coloredMessage(StaffManager.prefix+"&cAffect spawning disabled"));}
-
-                break;
-        }
-
-    }
-
     public static void collidable(Player p,boolean announce){
         String path = p.getUniqueId().toString();
         String status = Files.getVanish().getString(path+".collidable");

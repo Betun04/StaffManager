@@ -25,12 +25,12 @@ public class ChatBanWords implements SubCommand {
                 switch (args[2]){
                     case "add":
                         if(banedWordsList.contains(word)){
-                            sender.sendMessage(MessageUtils.coloredMessage(StaffManager.prefix+"The word is already banned."));
+                            sender.sendMessage(MessageUtils.coloredMessage(StaffManager.prefix+"The word is already banned"));
                         }else{
                             banedWordsList.add(word);
                             Files.getChatFile().set("banedWords",banedWordsList);
                             Files.saveChatFile();
-                            sender.sendMessage(MessageUtils.coloredMessage(StaffManager.prefix+"The word &c"+word+"&r was banned."));
+                            sender.sendMessage(MessageUtils.coloredMessage(StaffManager.prefix+"The word &c"+word+"&r was banned"));
                         }
                         break;
                     case "remove":
@@ -38,9 +38,9 @@ public class ChatBanWords implements SubCommand {
                             banedWordsList.remove(word);
                             Files.getChatFile().set("banedWords",banedWordsList);
                             Files.saveChatFile();
-                            sender.sendMessage(MessageUtils.coloredMessage(StaffManager.prefix+"The word &a"+word+"&r is no longer banned."));
+                            sender.sendMessage(MessageUtils.coloredMessage(StaffManager.prefix+"The word &a"+word+"&r is no longer banned"));
                         }else{
-                            sender.sendMessage(MessageUtils.coloredMessage(StaffManager.prefix+"The word &c"+word+"&r was not banned."));
+                            sender.sendMessage(MessageUtils.coloredMessage(StaffManager.prefix+"The word &c"+word+"&r was not banned"));
                         }
                         break;
                 }

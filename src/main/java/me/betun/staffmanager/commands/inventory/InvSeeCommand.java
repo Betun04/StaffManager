@@ -35,7 +35,7 @@ public class InvSeeCommand implements SubCommand {
                 }
             }
         } else {
-            sender.sendMessage(MessageUtils.coloredMessage(StaffManager.prefix+"&cThis command can only be executed by players."));
+            sender.sendMessage(MessageUtils.coloredMessage(StaffManager.prefix+"&cThis command can only be executed by players"));
         }
     }
 
@@ -49,7 +49,6 @@ public class InvSeeCommand implements SubCommand {
             ItemStack panel = new ItemStack(Material.BLACK_STAINED_GLASS_PANE);
             ItemMeta panelMeta = panel.getItemMeta();
             panelMeta.displayName(Component.text(""));
-            panelMeta.addItemFlags(ItemFlag.HIDE_ENCHANTS,ItemFlag.HIDE_ADDITIONAL_TOOLTIP,ItemFlag.HIDE_ATTRIBUTES);
             panelMeta.setCustomModelData(1996);
             panel.setItemMeta(panelMeta);
 

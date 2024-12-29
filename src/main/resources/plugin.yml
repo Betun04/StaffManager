@@ -6,7 +6,7 @@ author: Betun04
 depend: [ProtocolLib]
 commands:
   staffmanager:
-    description: "Comando principal de StaffManager"
+    description: "StaffManager main command"
     usage: /<command>
     aliases:
       - sm
