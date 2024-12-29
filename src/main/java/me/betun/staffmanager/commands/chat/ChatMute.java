@@ -15,7 +15,7 @@ public class ChatMute implements SubCommand {
     @Override
     public void execute(CommandSender sender, String[] args) {
         if (args.length < 3) {
-            sender.sendMessage("Uso: /staffmanager chat mute <player>");
+            sender.sendMessage(MessageUtils.coloredMessage(StaffManager.prefix+"Usage: /staffmanager chat mute <player>"));
             return;
         }
 
@@ -28,15 +28,15 @@ public class ChatMute implements SubCommand {
             mutedList.add(p.getUniqueId().toString());
             Files.getChatFile().set("muted",mutedList);
             Files.saveChatFile();
-            sender.sendMessage(MessageUtils.coloredMessage(StaffManager.prefix+"El usuario &3"+p.getName()+"&r fue muteado."));
+            sender.sendMessage(MessageUtils.coloredMessage(StaffManager.prefix+"The user &3"+p.getName()+"&r was muted."));
         } else if (p != null && p.isOnline() && !p.isOp() && mutedList.contains(p.getUniqueId().toString())){
             // Lógica para desactivar el mute
             mutedList.remove(p.getUniqueId().toString());
             Files.getChatFile().set("muted",mutedList);
             Files.saveChatFile();
-            sender.sendMessage(MessageUtils.coloredMessage(StaffManager.prefix+"El usuario &3"+p.getName()+"&r fue desmuteado."));
+            sender.sendMessage(MessageUtils.coloredMessage(StaffManager.prefix+"The user &3"+p.getName()+"&r can speak again."));
         } else {
-            sender.sendMessage(MessageUtils.coloredMessage(StaffManager.prefix+"Uso: /staffmanager chat mute <player>"));
+            sender.sendMessage(MessageUtils.coloredMessage(StaffManager.prefix+"Usage: /staffmanager chat mute <player>"));
         }
     }
 }

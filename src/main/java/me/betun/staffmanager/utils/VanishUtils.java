@@ -27,8 +27,6 @@ public class VanishUtils {
 
         Files.saveVanish();
 
-        status = Files.getVanish().getString(path+".vanish");
-
     }
 
     public static void pickUp(Player p,boolean announce){
@@ -132,41 +130,6 @@ public class VanishUtils {
             case "false":
                 p.setCollidable(false);
                 if(announce){p.sendMessage(MessageUtils.coloredMessage(StaffManager.prefix+"&cCollidable disabled"));}
-                break;
-        }
-
-    }
-
-    public static void silent(Player p,boolean announce){
-        String path = p.getUniqueId().toString();
-        String status = Files.getVanish().getString(path+".silent");
-
-        try {
-            if(status.equalsIgnoreCase("true")){
-                Files.getVanish().set(path+".silent","false");
-            }else if(status.equalsIgnoreCase("false")){
-                Files.getVanish().set(path+".silent","true");
-            }
-        } catch(NullPointerException e) {
-            if (p.isVisibleByDefault()) {
-                Files.getVanish().set(path + ".silent", "false");
-            } else {
-                Files.getVanish().set(path + ".silent", "true");
-            }
-        }
-
-        Files.saveVanish();
-
-        status = Files.getVanish().getString(path+".silent");
-
-        switch (status){
-            case "true":
-                p.setSilent(true);
-                if(announce){p.sendMessage(MessageUtils.coloredMessage(StaffManager.prefix+"&aSilent enabled"));}
-                break;
-            case "false":
-                p.setSilent(false);
-                if(announce){p.sendMessage(MessageUtils.coloredMessage(StaffManager.prefix+"&cSilent disabled"));}
                 break;
         }
 

@@ -1,7 +1,9 @@
 package me.betun.staffmanager.commands.chat;
 
+import me.betun.staffmanager.StaffManager;
 import me.betun.staffmanager.interfaces.SubCommand;
 import me.betun.staffmanager.utils.Files;
+import me.betun.staffmanager.utils.MessageUtils;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 
@@ -16,7 +18,7 @@ public class StaffChatCommand implements SubCommand {
             List<String> staffChatToggled = Files.getChatFile().getStringList("staffsChat");
 
             if (args.length < 2) {
-                sender.sendMessage("Uso: /staffmanager staffchat <on|off>");
+                sender.sendMessage(MessageUtils.coloredMessage(StaffManager.prefix+"Usage: /staffmanager staffchat <on|off>"));
                 return;
             }
 
@@ -25,12 +27,15 @@ public class StaffChatCommand implements SubCommand {
                 staffChatToggled.add(p.getUniqueId().toString());
                 Files.getChatFile().set("staffsChat",staffChatToggled);
                 Files.saveChatFile();
+
+                sender.sendMessage(MessageUtils.coloredMessage(StaffManager.prefix+"StaffChat&a mode on"));
             } else if (state.equals("off")) {
                 staffChatToggled.remove(p.getUniqueId().toString());
                 Files.getChatFile().set("staffsChat",staffChatToggled);
                 Files.saveChatFile();
+                sender.sendMessage(MessageUtils.coloredMessage(StaffManager.prefix+"StaffChat&c mode off"));
             } else {
-                sender.sendMessage("Uso: /staffmanager staffchat <on|off>");
+                sender.sendMessage(MessageUtils.coloredMessage(StaffManager.prefix+"Usage: /staffmanager staffchat <on|off>"));
             }
         }
     }

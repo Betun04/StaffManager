@@ -32,4 +32,10 @@ public class MessageUtils {
         }
         return normalized.toString();
     }
+
+    public static String replaceWord(String message, String targetWord, String replacement) {
+        // Crear un patrón que busque la palabra sin importar mayúsculas/minúsculas
+        String pattern = "\\b" + targetWord + "\\b"; // \b asegura que coincida solo con palabras completas
+        return message.replaceAll("(?i)" + pattern, replacement);
+    }
 }

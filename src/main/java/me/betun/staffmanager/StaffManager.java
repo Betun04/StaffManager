@@ -2,14 +2,6 @@ package me.betun.staffmanager;
 
 import me.betun.staffmanager.commands.MainCommand;
 import me.betun.staffmanager.commands.MainCommandTabCompleter;
-import me.betun.staffmanager.commands.chat.*;
-import me.betun.staffmanager.commands.freeze.Freeze;
-import me.betun.staffmanager.commands.freeze.FreezeTabCompleter;
-import me.betun.staffmanager.commands.inventory.InvSee;
-import me.betun.staffmanager.commands.inventory.SaveInventory;
-import me.betun.staffmanager.commands.inventory.SaveInventoryTabCompleter;
-import me.betun.staffmanager.commands.vanish.Vanish;
-import me.betun.staffmanager.commands.vanish.VanishTabCompleter;
 import me.betun.staffmanager.listeners.PlayerListener;
 import me.betun.staffmanager.listeners.ProtocolLibHook;
 import me.betun.staffmanager.utils.Files;
@@ -40,10 +32,11 @@ public final class StaffManager extends JavaPlugin {
         Files.saveFreeze();
         Files.saveChatFile();
 
+        saveDefaultConfig();
+        //endregion
+
         registerCommands();
         registerListeners();
-
-        //endregion
 
         //Check ProtocolLib
         if(Bukkit.getPluginManager().getPlugin("ProtocolLib") != null){

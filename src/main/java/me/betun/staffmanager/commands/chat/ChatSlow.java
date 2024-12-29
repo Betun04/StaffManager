@@ -11,7 +11,7 @@ public class ChatSlow implements SubCommand {
     @Override
     public void execute(CommandSender sender, String[] args) {
         if (args.length < 3) {
-            sender.sendMessage("Uso: /staffmanager chat slow <on|off>");
+            sender.sendMessage(MessageUtils.coloredMessage(StaffManager.prefix+"Usage: /staffmanager chat slow <on|off>"));
             return;
         }
 
@@ -20,14 +20,14 @@ public class ChatSlow implements SubCommand {
             // Lógica para activar el slow chat
             Files.getChatFile().set("slowed",true);
             Files.saveChatFile();
-            sender.sendMessage(MessageUtils.coloredMessage(StaffManager.prefix+"Chat lento activado."));
+            sender.sendMessage(MessageUtils.coloredMessage(StaffManager.prefix+"Slow chat on."));
         } else if (state.equals("off")) {
             // Lógica para desactivar el slow chat
             Files.getChatFile().set("slowed",false);
             Files.saveChatFile();
-            sender.sendMessage(MessageUtils.coloredMessage(StaffManager.prefix+"Chat lento desactivado."));
+            sender.sendMessage(MessageUtils.coloredMessage(StaffManager.prefix+"Slow chat off."));
         } else {
-            sender.sendMessage(MessageUtils.coloredMessage(StaffManager.prefix+"Uso: /staffmanager chat slow <on|off>"));
+            sender.sendMessage(MessageUtils.coloredMessage(StaffManager.prefix+"Usage: /staffmanager chat slow <on|off>"));
         }
     }
 }

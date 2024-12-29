@@ -1,6 +1,8 @@
 package me.betun.staffmanager.commands.chat;
 
+import me.betun.staffmanager.StaffManager;
 import me.betun.staffmanager.interfaces.SubCommand;
+import me.betun.staffmanager.utils.MessageUtils;
 import org.bukkit.command.CommandSender;
 
 import java.util.HashMap;
@@ -20,7 +22,7 @@ public class ChatCommand implements SubCommand {
     @Override
     public void execute(CommandSender sender, String[] args) {
         if (args.length < 2) {
-            sender.sendMessage("Uso: /staffmanager chat <subcomando>");
+            sender.sendMessage(MessageUtils.coloredMessage(StaffManager.prefix+"Usage: /staffmanager chat <subcommand>"));
             return;
         }
 
@@ -28,7 +30,7 @@ public class ChatCommand implements SubCommand {
         if (subCommand != null) {
             subCommand.execute(sender, args);
         } else {
-            sender.sendMessage("Subcomando no válido para chat.");
+            sender.sendMessage(MessageUtils.coloredMessage(StaffManager.prefix+"Invalid option for chat."));
         }
     }
 }

@@ -1,47 +1,49 @@
 package me.betun.staffmanager.commands.inventory;
 
+import me.betun.staffmanager.StaffManager;
+import me.betun.staffmanager.interfaces.SubCommand;
+import me.betun.staffmanager.utils.MessageUtils;
 import net.kyori.adventure.text.Component;
 import org.bukkit.Bukkit;
 import org.bukkit.Material;
-import org.bukkit.command.Command;
-import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.Inventory;
 import org.bukkit.inventory.ItemFlag;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
-import org.jetbrains.annotations.NotNull;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
+import java.util.UUID;
 
-public class InvSee implements CommandExecutor {
+public class InvSeeCommand implements SubCommand {
+
+    private static final Map<UUID, UUID> adminToTargetMap = new HashMap<>();
+
     @Override
-    public boolean onCommand(@NotNull CommandSender sender, @NotNull Command cmd, @NotNull String s, @NotNull String[] args) {
-        if (cmd.getName().equalsIgnoreCase("invsee")) {
-            if (sender instanceof Player) {
-                Player admin = (Player) sender;
+    public void execute(CommandSender sender, String[] args) {
+        if (sender instanceof Player admin && admin.isOp()) {
 
-                if (args.length == 1) {
-                    Player target = Bukkit.getPlayer(args[0]); // Busca al jugador objetivo
+            if (args.length == 2) {
+                Player target = Bukkit.getPlayer(args[1]); // Busca al jugador objetivo
 
-                    if (target != null && target.isOnline()) {
-                        openPlayerFullInventory(admin, target); // Llama al nuevo metodo
-                    }
+                if (target != null && target.isOnline()) {
+                    openPlayerFullInventory(admin, target); // Llama al nuevo metodo
+                    adminToTargetMap.put(admin.getUniqueId(),target.getUniqueId());
                 }
-            } else {
-                sender.sendMessage("Este comando solo puede ser usado por jugadores.");
             }
-            return true;
+        } else {
+            sender.sendMessage(MessageUtils.coloredMessage(StaffManager.prefix+"&cThis command can only be executed by players."));
         }
-        return false;
     }
 
-    public void openPlayerFullInventory(Player admin, Player target) {
+    public static void openPlayerFullInventory(Player admin, Player target) {
         if (target != null && target.isOnline()) {
 
             // Crea un inventario con 45 slots (36 para el inventario + 4 para la armadura + 5 adicionales)
-            Inventory fullInventory = Bukkit.createInventory(null, 54, "Inventario de " + target.getName());
+            Inventory fullInventory = Bukkit.createInventory(null, 54, "Inventory of " + target.getName());
 
             //Poner critales separadores
             ItemStack panel = new ItemStack(Material.BLACK_STAINED_GLASS_PANE);
@@ -82,4 +84,20 @@ public class InvSee implements CommandExecutor {
         }
     }
 
+    public static void removeAdminTarget(Player admin){
+        adminToTargetMap.remove(admin.getUniqueId());
+    }
+
+    public static boolean playerBeingViewed(Player target){
+        return adminToTargetMap.containsValue(target.getUniqueId());
+    }
+
+    public static UUID adminViewingInv(Player target){
+        for (Map.Entry<UUID, UUID> entry : adminToTargetMap.entrySet()) {
+            if(entry.getValue().equals(target.getUniqueId())){
+                return entry.getKey();
+            }
+        }
+        return null;
+    }
 }

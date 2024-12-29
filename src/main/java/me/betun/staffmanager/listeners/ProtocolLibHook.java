@@ -5,7 +5,6 @@ import com.comphenix.protocol.ProtocolLibrary;
 import com.comphenix.protocol.ProtocolManager;
 import com.comphenix.protocol.events.PacketAdapter;
 import com.comphenix.protocol.events.PacketEvent;
-import com.comphenix.protocol.wrappers.WrappedChatComponent;
 import com.google.common.cache.Cache;
 import com.google.common.cache.CacheBuilder;
 import me.betun.staffmanager.StaffManager;
@@ -14,8 +13,6 @@ import me.betun.staffmanager.utils.MessageUtils;
 import net.kyori.adventure.text.Component;
 import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
-
-import java.util.HashMap;
 import java.util.List;
 import java.util.UUID;
 import java.util.concurrent.TimeUnit;
@@ -28,12 +25,13 @@ public class ProtocolLibHook {
         final Cache<UUID, Long> lastMessageTime = CacheBuilder.newBuilder()
                 .expireAfterWrite(5, TimeUnit.MINUTES) // Elimina entradas inactivas después de 5 minutos
                 .build();
-        long chatCooldown = 5000; // 5 segundos
 
         manager.addPacketListener(new PacketAdapter(StaffManager.getInstance(), PacketType.Play.Client.CHAT) {
 
             @Override
             public void onPacketReceiving(PacketEvent e) {
+
+                long chatCooldown = StaffManager.getInstance().getConfig().getLong("slowTime"); // 5 segundos
 
                 List<String> muted = Files.getChatFile().getStringList("muted");
                 List<String> banedWords = Files.getChatFile().getStringList("banedWords");
@@ -95,19 +93,13 @@ public class ProtocolLibHook {
                         String censored = "*".repeat(word.length());
 
                         // Modificar el mensaje
-                        String modifiedMessage = replaceWord(normalizedMessage,word,censored);
+                        String modifiedMessage = MessageUtils.replaceWord(normalizedMessage,word,censored);
                         e.getPacket().getStrings().write(0, modifiedMessage);
                     }
                 }
             }
 
         });
-    }
-
-    public static String replaceWord(String message, String targetWord, String replacement) {
-        // Crear un patrón que busque la palabra sin importar mayúsculas/minúsculas
-        String pattern = "\\b" + targetWord + "\\b"; // \b asegura que coincida solo con palabras completas
-        return message.replaceAll("(?i)" + pattern, replacement);
     }
 
 }

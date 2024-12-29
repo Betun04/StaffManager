@@ -11,7 +11,7 @@ public class ChatPause implements SubCommand {
     @Override
     public void execute(CommandSender sender, String[] args) {
         if (args.length < 3) {
-            sender.sendMessage("Uso: /staffmanager chat pause <on|off>");
+            sender.sendMessage(MessageUtils.coloredMessage(StaffManager.prefix+"Usage: /staffmanager chat pause <on|off>"));
             return;
         }
 
@@ -20,14 +20,14 @@ public class ChatPause implements SubCommand {
             // Lógica para activar el pause chat
             Files.getChatFile().set("paused",true);
             Files.saveChatFile();
-            sender.sendMessage(MessageUtils.coloredMessage(StaffManager.prefix+"Chat pausado."));
+            sender.sendMessage(MessageUtils.coloredMessage(StaffManager.prefix+"Chat paused."));
         } else if (state.equals("off")) {
             // Lógica para desactivar el pause chat
             Files.getChatFile().set("paused",false);
             Files.saveChatFile();
-            sender.sendMessage(MessageUtils.coloredMessage(StaffManager.prefix+"Chat activado."));
+            sender.sendMessage(MessageUtils.coloredMessage(StaffManager.prefix+"Chat active again."));
         } else {
-            sender.sendMessage(MessageUtils.coloredMessage(StaffManager.prefix+"Uso: /staffmanager chat pause <on|off>"));
+            sender.sendMessage(MessageUtils.coloredMessage(StaffManager.prefix+"Usage: /staffmanager chat pause <on|off>"));
         }
     }
 }

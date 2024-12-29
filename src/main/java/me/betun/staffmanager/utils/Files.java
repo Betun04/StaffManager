@@ -114,6 +114,8 @@ public class Files {
     public static void reload(){
         customFileInvs = YamlConfiguration.loadConfiguration(fileInvs);
         customFileVanish = YamlConfiguration.loadConfiguration(fileVanish);
+        customFileFreeze = YamlConfiguration.loadConfiguration(fileFreeze);
+        customFileChat = YamlConfiguration.loadConfiguration(fileChat);
     }
 
 }

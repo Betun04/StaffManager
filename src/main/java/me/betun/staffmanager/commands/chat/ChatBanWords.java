@@ -20,17 +20,17 @@ public class ChatBanWords implements SubCommand {
 
             if(args.length==4){
 
-                String word = args[2];
+                String word = args[3];
 
-                switch (args[3]){
+                switch (args[2]){
                     case "add":
                         if(banedWordsList.contains(word)){
-                            sender.sendMessage(MessageUtils.coloredMessage(StaffManager.prefix+"Esta palabra ya está baneada."));
+                            sender.sendMessage(MessageUtils.coloredMessage(StaffManager.prefix+"The word is already banned."));
                         }else{
                             banedWordsList.add(word);
                             Files.getChatFile().set("banedWords",banedWordsList);
                             Files.saveChatFile();
-                            sender.sendMessage(MessageUtils.coloredMessage(StaffManager.prefix+"La palabra &c"+word+"&r fue baneada."));
+                            sender.sendMessage(MessageUtils.coloredMessage(StaffManager.prefix+"The word &c"+word+"&r was banned."));
                         }
                         break;
                     case "remove":
@@ -38,12 +38,14 @@ public class ChatBanWords implements SubCommand {
                             banedWordsList.remove(word);
                             Files.getChatFile().set("banedWords",banedWordsList);
                             Files.saveChatFile();
-                            sender.sendMessage(MessageUtils.coloredMessage(StaffManager.prefix+"La palabra &a"+word+"&r ya no está baneada."));
+                            sender.sendMessage(MessageUtils.coloredMessage(StaffManager.prefix+"The word &a"+word+"&r is no longer banned."));
                         }else{
-                            sender.sendMessage(MessageUtils.coloredMessage(StaffManager.prefix+"La palabra &c"+word+"&r no está baneada."));
+                            sender.sendMessage(MessageUtils.coloredMessage(StaffManager.prefix+"The word &c"+word+"&r was not banned."));
                         }
                         break;
                 }
+            }else{
+                sender.sendMessage(MessageUtils.coloredMessage(StaffManager.prefix+"The banword usage is: /sm chat banword add|remove <word>"));
             }
         }
     }

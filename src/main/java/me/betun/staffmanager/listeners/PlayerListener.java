@@ -1,6 +1,7 @@
 package me.betun.staffmanager.listeners;
 
 import me.betun.staffmanager.StaffManager;
+import me.betun.staffmanager.commands.inventory.InvSeeCommand;
 import me.betun.staffmanager.utils.Files;
 import net.kyori.adventure.text.Component;
 import org.bukkit.Bukkit;
@@ -12,12 +13,11 @@ import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.entity.EntityDamageByEntityEvent;
 import org.bukkit.event.entity.EntityPickupItemEvent;
-import org.bukkit.event.inventory.ClickType;
-import org.bukkit.event.inventory.InventoryClickEvent;
-import org.bukkit.event.inventory.InventoryDragEvent;
+import org.bukkit.event.inventory.*;
 import org.bukkit.event.player.PlayerDropItemEvent;
 import org.bukkit.event.player.PlayerInteractEvent;
 import org.bukkit.event.player.PlayerMoveEvent;
+import org.bukkit.event.player.PlayerQuitEvent;
 import org.bukkit.inventory.Inventory;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
@@ -25,9 +25,11 @@ import org.jetbrains.annotations.NotNull;
 
 import java.util.List;
 import java.util.Set;
+import java.util.UUID;
 
 public class PlayerListener implements Listener {
 
+    //region Vanish things
     @EventHandler
     public void onPlayerHit(EntityDamageByEntityEvent e){
 
@@ -39,7 +41,7 @@ public class PlayerListener implements Listener {
         }
 
     }
-
+    //endregion
 
     //region Freeze things
 
@@ -113,15 +115,16 @@ public class PlayerListener implements Listener {
 
 
         // Verificar que el inventario sea parte del sistema InvSee
-        if (e.getView().getTitle().contains("Inventario de")) {
+        if (e.getView().getTitle().contains("Inventory of")) {
             Player admin = (Player) e.getWhoClicked();
-            Player target = Bukkit.getPlayer(e.getView().getTitle().replace("Inventario de ",""));
+            Player target = Bukkit.getPlayer(e.getView().getTitle().replace("Inventory of ",""));
 
             if (target != null && target.isOnline()) {
 
                 // Verificar el tipo de clic
                 if (e.getClickedInventory() == null ||
-                   (e.getCurrentItem() != null && e.getCurrentItem().getType() == Material.BLACK_STAINED_GLASS_PANE && e.getCurrentItem().getItemMeta().getCustomModelData() == 1996)){
+                   (e.getCurrentItem() != null && e.getCurrentItem().getType() == Material.BLACK_STAINED_GLASS_PANE && e.getCurrentItem().getItemMeta().getCustomModelData() == 1996)
+                   || e.getClick() == ClickType.NUMBER_KEY){
 
                     e.setCancelled(true);
                 }
@@ -204,9 +207,9 @@ public class PlayerListener implements Listener {
 
     @EventHandler
     public void onInventoryDrag(InventoryDragEvent e){
-        if(e.getView().getTitle().contains("Inventario de")){
+        if(e.getView().getTitle().contains("Inventory of")){
             Player admin = (Player) e.getWhoClicked();
-            Player target = Bukkit.getPlayer(e.getView().getTitle().replace("Inventario de ",""));
+            Player target = Bukkit.getPlayer(e.getView().getTitle().replace("Inventory of ",""));
 
             if(target != null && target.isOnline()){
 
@@ -219,5 +222,26 @@ public class PlayerListener implements Listener {
             }
         }
     }
+
+    @EventHandler
+    public void onInventoryClose(InventoryCloseEvent e){
+        if(e.getPlayer().isOp() && e.getView().getTitle().contains("Inventory of")){
+            Player admin = (Player) e.getPlayer();
+            InvSeeCommand.removeAdminTarget(admin);
+        }
+    }
+
+    @EventHandler
+    public void onQuit(PlayerQuitEvent e){
+        if(InvSeeCommand.playerBeingViewed(e.getPlayer())){
+            UUID adminUUID = InvSeeCommand.adminViewingInv(e.getPlayer());
+            if(adminUUID != null && Bukkit.getPlayer(adminUUID).isOnline()){
+                Player admin = Bukkit.getPlayer(adminUUID);
+                admin.closeInventory();
+                InvSeeCommand.removeAdminTarget(Bukkit.getPlayer(adminUUID));
+            }
+        }
+    }
+
     //endregion
 }
