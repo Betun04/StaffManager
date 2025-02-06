@@ -14,7 +14,7 @@ public class VanishCommand implements SubCommand {
 
     @Override
     public void execute(CommandSender sender, String[] args) {
-        if(sender instanceof Player p) {
+        if(sender instanceof Player p && (sender.hasPermission("staffmanager.vanish") || sender.hasPermission("staffmanager.all"))) {
 
             ArrayList<String> options = new ArrayList<>();
             options.add("pickup");
@@ -26,7 +26,9 @@ public class VanishCommand implements SubCommand {
                     VanishUtils.collidable(p,false);
                     VanishUtils.vanishState(p);
                     p.setVisibleByDefault(false);
-                    p.sendMessage(MessageUtils.coloredMessage(StaffManager.prefix + "&dYou are no longer visible, shh"));
+
+                    MessageUtils.sendMessage(p,StaffManager.prefix + "&dYou are no longer visible, shh");
+                    //p.sendMessage(MessageUtils.coloredMessage(StaffManager.prefix + "&dYou are no longer visible, shh"));
                 }
                 else{
                     if(!p.getCanPickupItems()){
@@ -39,23 +41,27 @@ public class VanishCommand implements SubCommand {
 
                     VanishUtils.vanishState(p);
                     p.setVisibleByDefault(true);
-                    p.sendMessage(MessageUtils.coloredMessage(StaffManager.prefix + "&dYou are visible again!"));
+                    MessageUtils.sendMessage(p,StaffManager.prefix + "&dYou are visible again!");
+                    //p.sendMessage(MessageUtils.coloredMessage(StaffManager.prefix + "&dYou are visible again!"));
                 }
             }else if(args[1].equalsIgnoreCase("pickup")){
                 if(!p.isVisibleByDefault()){
                     VanishUtils.pickUp(p,true);
                 }else{
-                    sender.sendMessage(MessageUtils.coloredMessage(StaffManager.prefix + "&cYou must be vanished to use this command"));
+                    MessageUtils.sendMessage((Player) sender,StaffManager.prefix + "&dYou are visible again!");
+                    //sender.sendMessage(MessageUtils.coloredMessage(StaffManager.prefix + "&cYou must be vanished to use this command"));
                 }
             }else if(args[1].equalsIgnoreCase("collidable")) {
                 if(!p.isVisibleByDefault()){
                     VanishUtils.collidable(p,true);
                 }else{
-                    sender.sendMessage(MessageUtils.coloredMessage(StaffManager.prefix + "&cYou must be vanished to use this command"));
+                    MessageUtils.sendMessage((Player) sender,StaffManager.prefix + "&cYou must be vanished to use this command");
+                    //sender.sendMessage(MessageUtils.coloredMessage(StaffManager.prefix + "&cYou must be vanished to use this command"));
                 }
             }
         }else{
-            sender.sendMessage(MessageUtils.coloredMessage(StaffManager.prefix + "&cSender must be player"));
+            MessageUtils.sendMessage((Player) sender,StaffManager.prefix+"&cYou don't have permission to use this command.");
+            //sender.sendMessage(MessageUtils.coloredMessage(StaffManager.prefix+"&cYou don't have permission to use this command."));
         }
     }
 }

@@ -46,7 +46,8 @@ public class ProtocolLibHook {
                     e.setCancelled(true);
                 }
                 else if(muted.contains(e.getPlayer().getUniqueId().toString()) && !e.getPlayer().isOp()) {
-                    e.getPlayer().sendMessage(MessageUtils.coloredMessage(StaffManager.prefix+"&cYou have been muted, you cannot speak"));
+                    MessageUtils.sendMessage(e.getPlayer(),StaffManager.prefix+"&cYou have been muted, you cannot speak");
+                    //e.getPlayer().sendMessage(MessageUtils.coloredMessage(StaffManager.prefix+"&cYou have been muted, you cannot speak"));
                     e.setCancelled(true);
                 }
                 else if(slowed && !e.getPlayer().isOp()){
@@ -60,7 +61,8 @@ public class ProtocolLibHook {
                         // Cooldown activo
                         e.setCancelled(true);
                         long timeLeft = (chatCooldown - (currentTime - lastTime)) / 1000;
-                        e.getPlayer().sendMessage(MessageUtils.coloredMessage(StaffManager.prefix+"Please, wait " + timeLeft + " seconds before sending another message"));
+                        MessageUtils.sendMessage(e.getPlayer(),StaffManager.prefix+"Please, wait " + timeLeft + " seconds before sending another message");
+                        //e.getPlayer().sendMessage(MessageUtils.coloredMessage(StaffManager.prefix+"Please, wait " + timeLeft + " seconds before sending another message"));
                         return;
                     }
 
@@ -68,20 +70,21 @@ public class ProtocolLibHook {
                 }
                 else if(e.getPlayer().isOp() && staffsChat.contains(e.getPlayer().getUniqueId().toString())){
 
-                    Component staffChatPrefix = MessageUtils.coloredMessage("&d[StaffChat]&r ");
+                    String staffChatPrefix = "&d[StaffChat]&r ";
 
                     for(Player p: Bukkit.getOnlinePlayers()){
                         e.setCancelled(true);
                         if(p.isOp()){
 
                             // Crear varios componentes de texto
-                            Component pName = MessageUtils.coloredMessage("&6"+e.getPlayer().getName()+"&r: ");
-                            Component msg = MessageUtils.coloredMessage("&e"+message);
+                            String pName = "&6"+e.getPlayer().getName()+"&r: ";
+                            String msg = "&e"+message;
 
                             // Concatenar los componentes
-                            Component concatenated = staffChatPrefix.append(pName).append(msg);
+                            String concatenated = staffChatPrefix+pName+msg;
 
-                            p.sendMessage(concatenated);
+                            MessageUtils.sendMessage(p,concatenated);
+                            //p.sendMessage(concatenated);
                         }
                     }
 
@@ -97,6 +100,10 @@ public class ProtocolLibHook {
                         e.getPacket().getStrings().write(0, modifiedMessage);
                     }
                 }
+
+
+
+
             }
 
         });

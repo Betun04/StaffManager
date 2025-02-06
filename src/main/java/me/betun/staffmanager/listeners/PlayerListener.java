@@ -1,28 +1,23 @@
 package me.betun.staffmanager.listeners;
 
-import com.destroystokyo.paper.event.player.PlayerJumpEvent;
 import me.betun.staffmanager.StaffManager;
 import me.betun.staffmanager.commands.inventory.InvSeeCommand;
 import me.betun.staffmanager.utils.Files;
+import me.betun.staffmanager.utils.MessageUtils;
 import net.kyori.adventure.text.Component;
 import org.bukkit.Bukkit;
-import org.bukkit.ChatColor;
 import org.bukkit.Location;
 import org.bukkit.Material;
+import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.entity.EntityDamageByEntityEvent;
 import org.bukkit.event.entity.EntityPickupItemEvent;
 import org.bukkit.event.inventory.*;
-import org.bukkit.event.player.PlayerDropItemEvent;
-import org.bukkit.event.player.PlayerInteractEvent;
-import org.bukkit.event.player.PlayerMoveEvent;
-import org.bukkit.event.player.PlayerQuitEvent;
+import org.bukkit.event.player.*;
 import org.bukkit.inventory.Inventory;
 import org.bukkit.inventory.ItemStack;
-import org.bukkit.inventory.meta.ItemMeta;
-import org.jetbrains.annotations.NotNull;
 
 import java.util.List;
 import java.util.Set;
@@ -251,4 +246,71 @@ public class PlayerListener implements Listener {
 
     //endregion
 
+    //region Join/Leave/Kick messages things
+
+
+    private static boolean adventureAvailable = true; // Asumimos que Adventure está disponible
+
+    static {
+        try {
+            // Verificamos si el método sendMessage(Component) existe en Player
+            Player.class.getMethod("sendMessage", Component.class);
+        } catch (NoSuchMethodException e) {
+            adventureAvailable = false; // Si no existe, desactivamos Adventure
+        }
+    }
+
+    @EventHandler
+    public void onPlayerJoin(PlayerJoinEvent e){
+        if(StaffManager.getInstance().getConfig().getBoolean("join.active")) {
+            if(adventureAvailable){
+                String msg = StaffManager.getInstance().getConfig().getString("join.message");
+                if(msg.contains("%player%")){
+                    msg = msg.replace("%player%",e.getPlayer().getName());
+                }
+                e.joinMessage((Component) MessageUtils.coloredMessage(msg));
+            }else{
+                String msg = (String) MessageUtils.coloredMessage(StaffManager.getInstance().getConfig().getString("join.message"));
+                if(msg.contains("%player%")){
+                    msg = msg.replace("%player%",e.getPlayer().getName());
+                }
+                e.setJoinMessage(msg);
+            }
+
+        }else{
+            if(adventureAvailable){
+                e.joinMessage((Component) MessageUtils.coloredMessage(""));
+            }else{
+                e.setJoinMessage((String) MessageUtils.coloredMessage(""));
+            }
+
+        }
+    }
+
+    @EventHandler
+    public void onPlayerLeave(PlayerQuitEvent e){
+        if(StaffManager.getInstance().getConfig().getBoolean("leave.active")) {
+            if(adventureAvailable) {
+                String msg = StaffManager.getInstance().getConfig().getString("leave.message");
+                if(msg.contains("%player%")){
+                    msg = msg.replace("%player%",e.getPlayer().getName());
+                }
+                e.quitMessage((Component) MessageUtils.coloredMessage(msg));
+            }else{
+                String msg = (String) MessageUtils.coloredMessage(StaffManager.getInstance().getConfig().getString("leave.message"));
+                if(msg.contains("%player%")){
+                   msg = msg.replace("%player%",e.getPlayer().getName());
+                }
+                e.setQuitMessage(msg);
+            }
+
+        }else{
+            if(adventureAvailable){
+                e.quitMessage((Component) MessageUtils.coloredMessage(""));
+            }else{
+                e.setQuitMessage((String) MessageUtils.coloredMessage(""));
+            }
+        }
+    }
+    //endregion
 }

@@ -24,7 +24,7 @@ public class InvSeeCommand implements SubCommand {
 
     @Override
     public void execute(CommandSender sender, String[] args) {
-        if (sender instanceof Player admin && admin.isOp()) {
+        if (sender instanceof Player admin && (admin.hasPermission("staffmanager.invsee") || sender.hasPermission("staffmanager.all"))) {
 
             if (args.length == 2) {
                 Player target = Bukkit.getPlayer(args[1]); // Busca al jugador objetivo
@@ -34,8 +34,9 @@ public class InvSeeCommand implements SubCommand {
                     adminToTargetMap.put(admin.getUniqueId(),target.getUniqueId());
                 }
             }
-        } else {
-            sender.sendMessage(MessageUtils.coloredMessage(StaffManager.prefix+"&cThis command can only be executed by players"));
+        }else{
+            MessageUtils.sendMessage((Player) sender, StaffManager.prefix+"&cYou don't have permission to use this command.");
+            //sender.sendMessage(MessageUtils.coloredMessage(StaffManager.prefix+"&cYou don't have permission to use this command."));
         }
     }
 

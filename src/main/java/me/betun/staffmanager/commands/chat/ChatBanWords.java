@@ -1,5 +1,6 @@
 package me.betun.staffmanager.commands.chat;
 
+import com.mojang.brigadier.Message;
 import me.betun.staffmanager.StaffManager;
 import me.betun.staffmanager.interfaces.SubCommand;
 import me.betun.staffmanager.utils.Files;
@@ -14,7 +15,7 @@ public class ChatBanWords implements SubCommand {
 
     @Override
     public void execute(CommandSender sender, String[] args) {
-        if(sender instanceof Player){
+        if(sender instanceof Player && (sender.hasPermission("staffmanager.banword") || sender.hasPermission("staffmanager.chat.all") || sender.hasPermission("staffmanager.all"))){
 
             List<String> banedWordsList = Files.getChatFile().getStringList("banedWords");
 
@@ -25,12 +26,14 @@ public class ChatBanWords implements SubCommand {
                 switch (args[2]){
                     case "add":
                         if(banedWordsList.contains(word)){
-                            sender.sendMessage(MessageUtils.coloredMessage(StaffManager.prefix+"The word is already banned"));
+                            MessageUtils.sendMessage((Player) sender, StaffManager.prefix+"The word is already banned");
+                            //sender.sendMessage(MessageUtils.coloredMessage(StaffManager.prefix+"The word is already banned"));
                         }else{
                             banedWordsList.add(word);
                             Files.getChatFile().set("banedWords",banedWordsList);
                             Files.saveChatFile();
-                            sender.sendMessage(MessageUtils.coloredMessage(StaffManager.prefix+"The word &c"+word+"&r was banned"));
+                            MessageUtils.sendMessage((Player) sender, StaffManager.prefix+"The word &c"+word+"&r was banned");
+                            //sender.sendMessage(MessageUtils.coloredMessage(StaffManager.prefix+"The word &c"+word+"&r was banned"));
                         }
                         break;
                     case "remove":
@@ -38,15 +41,21 @@ public class ChatBanWords implements SubCommand {
                             banedWordsList.remove(word);
                             Files.getChatFile().set("banedWords",banedWordsList);
                             Files.saveChatFile();
-                            sender.sendMessage(MessageUtils.coloredMessage(StaffManager.prefix+"The word &a"+word+"&r is no longer banned"));
+                            MessageUtils.sendMessage((Player) sender, StaffManager.prefix+"The word &a"+word+"&r is no longer banned");
+                            //sender.sendMessage(MessageUtils.coloredMessage(StaffManager.prefix+"The word &a"+word+"&r is no longer banned"));
                         }else{
-                            sender.sendMessage(MessageUtils.coloredMessage(StaffManager.prefix+"The word &c"+word+"&r was not banned"));
+                            MessageUtils.sendMessage((Player) sender, StaffManager.prefix+"The word &c"+word+"&r was not banned");
+                            //sender.sendMessage(MessageUtils.coloredMessage(StaffManager.prefix+"The word &c"+word+"&r was not banned"));
                         }
                         break;
                 }
             }else{
-                sender.sendMessage(MessageUtils.coloredMessage(StaffManager.prefix+"The banword usage is: /sm chat banword add|remove <word>"));
+                MessageUtils.sendMessage((Player) sender, StaffManager.prefix+"The banword usage is: /sm chat banword add|remove <word>");
+                //sender.sendMessage(MessageUtils.coloredMessage(StaffManager.prefix+"The banword usage is: /sm chat banword add|remove <word>"));
             }
+        }else{
+            MessageUtils.sendMessage((Player) sender, StaffManager.prefix+"&cYou don't have permission to use this command.");
+            //sender.sendMessage(MessageUtils.coloredMessage(StaffManager.prefix+"&cYou don't have permission to use this command."));
         }
     }
 }

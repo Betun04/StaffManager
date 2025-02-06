@@ -12,4 +12,80 @@ commands:
       - sm
       - staffm
       - smanager
-    permission: op
+    permission: staffmanager
+permissions :
+  staffmanager:
+    description: "Access to staffmanager main command"
+    default: op
+  staffmanager.all:
+    description: "Access to all staffmanager commands"
+    children:
+      staffmanager.banword: true
+      staffmanager.mute: true
+      staffmanager.pause: true
+      staffmanager.slow: true
+      staffmanager.staffchat: true
+      staffmanager.freeze: true
+      staffmanager.saveinv: true
+      staffmanager.invsee: true
+      staffmanager.vanish: true
+      staffmanager: true
+  staffmanager.chat:
+    default: op
+  staffmanager.chat.all:
+    description: "Access to all staffmanager chat commands"
+    default: op
+    children:
+      staffmanager.banword: true
+      staffmanager.mute: true
+      staffmanager.pause: true
+      staffmanager.slow: true
+  staffmanager.banword:
+    description: "BanWord permission"
+    default: op
+    children:
+      staffmanager.chat: true
+      staffmanager: true
+  staffmanager.mute:
+    description: "Mute permission"
+    default: op
+    children:
+      staffmanager.chat: true
+      staffmanager: true
+  staffmanager.pause:
+    description: "Pause permission"
+    default: op
+    children:
+      staffmanager.chat: true
+      staffmanager: true
+  staffmanager.slow:
+    description: "Slow permission"
+    default: op
+    children:
+      staffmanager.chat: true
+      staffmanager: true
+  staffmanager.staffchat:
+    description: "Staffchat permission"
+    default: op
+    children:
+      staffmanager: true
+  staffmanager.freeze:
+    description: "Freeze permission"
+    default: op
+    children:
+      staffmanager: true
+  staffmanager.invsee:
+    description: "Invsee permission"
+    default: op
+    children:
+      staffmanager: true
+  staffmanager.saveinv:
+    description: "Save inventory permission"
+    default: op
+    children:
+      staffmanager: true
+  staffmanager.vanish:
+    description: "Vanish permission"
+    default: op
+    children:
+      staffmanager: true

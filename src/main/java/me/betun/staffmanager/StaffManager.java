@@ -5,8 +5,10 @@ import me.betun.staffmanager.commands.MainCommandTabCompleter;
 import me.betun.staffmanager.listeners.PlayerListener;
 import me.betun.staffmanager.listeners.ProtocolLibHook;
 import me.betun.staffmanager.utils.Files;
+import net.kyori.adventure.platform.bukkit.BukkitAudiences;
 import org.bukkit.Bukkit;
 import org.bukkit.plugin.java.JavaPlugin;
+import org.checkerframework.checker.nullness.qual.NonNull;
 
 public final class StaffManager extends JavaPlugin {
 
@@ -16,7 +18,6 @@ public final class StaffManager extends JavaPlugin {
 
     @Override
     public void onEnable() {
-        // Plugin startup logic
 
         instance = this;
         version = Integer.parseInt(Bukkit.getBukkitVersion().split("-")[0].replace(".",""));
@@ -63,9 +64,11 @@ public final class StaffManager extends JavaPlugin {
         Files.saveVanish();
         Files.saveFreeze();
         Files.saveChatFile();
+
     }
 
     public static StaffManager getInstance() {
         return instance;
     }
+
 }

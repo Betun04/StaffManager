@@ -17,12 +17,12 @@ public class FreezeCommand implements SubCommand {
 
     @Override
     public void execute(CommandSender sender, String[] args) {
-        if(sender instanceof Player && args.length == 2){
+        if(sender instanceof Player && args.length == 2 && (sender.hasPermission("staffmanager.freeze") || sender.hasPermission("staffmanager.all"))){
 
             List<String> frozenPlayers = Files.getFreeze().getStringList("freezed");
             Player p = Bukkit.getPlayer(args[1]);
 
-            if(p!= null && p.isOnline()){
+            if(p!= null && p.isOnline() && !p.isOp()){
                 if(frozenPlayers.contains(p.getUniqueId().toString())){
 
                     //Freeze config
@@ -38,8 +38,10 @@ public class FreezeCommand implements SubCommand {
                     //Add Gravity
                     p.setGravity(true);
 
-                    sender.sendMessage(MessageUtils.coloredMessage(StaffManager.prefix+"The player &b"+p.getName() +"&r is no longer&b frozen"));
-                    p.sendMessage(MessageUtils.coloredMessage(StaffManager.prefix+"You have been&b unfrozen"));
+                    MessageUtils.sendMessage((Player) sender,StaffManager.prefix+"The player &b"+p.getName() +"&r is no longer&b frozen");
+                    //sender.sendMessage(MessageUtils.coloredMessage(StaffManager.prefix+"The player &b"+p.getName() +"&r is no longer&b frozen"));
+                    MessageUtils.sendMessage(p,StaffManager.prefix+"You have been&b unfrozen");
+                    //p.sendMessage(MessageUtils.coloredMessage(StaffManager.prefix+"You have been&b unfrozen"));
 
                 }else{
 
@@ -56,10 +58,19 @@ public class FreezeCommand implements SubCommand {
                     //Gravity
                     p.setGravity(false);
 
-                    sender.sendMessage(MessageUtils.coloredMessage(StaffManager.prefix+"The player &b"+p.getName() +"&r is&b frozen"));
-                    p.sendMessage(MessageUtils.coloredMessage(StaffManager.prefix+"You have been&b frozen"));
+                    MessageUtils.sendMessage((Player) sender,StaffManager.prefix+"The player &b"+p.getName() +"&r is&b frozen");
+                    //sender.sendMessage(MessageUtils.coloredMessage(StaffManager.prefix+"The player &b"+p.getName() +"&r is&b frozen"));
+
+                    MessageUtils.sendMessage(p,StaffManager.prefix+"You have been&b frozen");
+                    //p.sendMessage(MessageUtils.coloredMessage(StaffManager.prefix+"You have been&b frozen"));
                 }
+            }else{
+                MessageUtils.sendMessage((Player) sender,StaffManager.prefix+"&cPlayer isn't online or is Op");
+                //sender.sendMessage(MessageUtils.coloredMessage(StaffManager.prefix+"&cPlayer isn't online or is Op"));
             }
+        }else{
+            MessageUtils.sendMessage((Player) sender,StaffManager.prefix+"&cYou don't have permission to use this command.");
+            //sender.sendMessage(MessageUtils.coloredMessage(StaffManager.prefix+"&cYou don't have permission to use this command."));
         }
     }
 }

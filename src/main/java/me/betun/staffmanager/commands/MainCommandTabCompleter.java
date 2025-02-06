@@ -22,21 +22,41 @@ public class MainCommandTabCompleter implements TabCompleter {
             return l;
         }
         else if(args.length==1){
-            l.add("chat");
-            l.add("staffchat");
-            l.add("freeze");
-            l.add("vanish");
-            l.add("saveinv");
-            l.add("invsee");
+            if(sender.hasPermission("staffmanager.chat") || sender.hasPermission("staffmanager.*")) {
+                l.add("chat");
+            }
+            if(sender.hasPermission("staffmanager.staffchat") || sender.hasPermission("staffmanager.*")) {
+                l.add("staffchat");
+            }
+            if(sender.hasPermission("staffmanager.freeze") || sender.hasPermission("staffmanager.*")) {
+                l.add("freeze");
+            }
+            if(sender.hasPermission("staffmanager.vanish") || sender.hasPermission("staffmanager.*")) {
+                l.add("vanish");
+            }
+            if(sender.hasPermission("staffmanager.saveinv") || sender.hasPermission("staffmanager.*")) {
+                l.add("saveinv");
+            }
+            if(sender.hasPermission("staffmanager.invsee") || sender.hasPermission("staffmanager.*")) {
+                l.add("invsee");
+            }
             l.add("reload");
         }
         else if(args.length==2) {
             switch (args[0]){
                 case "chat":
-                    l.add("slow");
-                    l.add("mute");
-                    l.add("pause");
-                    l.add("banword");
+                    if(sender.hasPermission("staffmanager.slow") || sender.hasPermission("staffmanager.*")) {
+                        l.add("slow");
+                    }
+                    if(sender.hasPermission("staffmanager.mute") || sender.hasPermission("staffmanager.*")) {
+                        l.add("mute");
+                    }
+                    if(sender.hasPermission("staffmanager.pause") || sender.hasPermission("staffmanager.*")) {
+                        l.add("pause");
+                    }
+                    if(sender.hasPermission("staffmanager.banword") || sender.hasPermission("staffmanager.*")) {
+                        l.add("banword");
+                    }
                     break;
                 case "staffchat":
                     l.add("on");
